@@ -1,4 +1,4 @@
-# weatherbit [![Build Status](https://travis-ci.org/sparkfun/pxt-weather-bit.svg?branch=master)](https://travis-ci.org/sparkfun/pxt-weather-bit)
+# klubban-weatherbit
 
 To use this package, go to https://makecode.microbit.org, click ``Add package`` and search for **weatherbit**.
 
@@ -155,4 +155,3 @@ MIT
 ## Supported targets
 
 * for PXT/microbit
-# klubban-weatherbit
