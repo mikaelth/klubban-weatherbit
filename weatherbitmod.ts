@@ -164,6 +164,63 @@ namespace weatherbit {
             return "???"
     }
 
+export function windDir ():number {
+    startWindMonitoring();
+
+    let voltage = 0
+    voltage = pins.analogReadPin(AnalogPin.P1)
+    
+    if (voltage > 368 && voltage < 382) {
+        return 112.5
+    }
+    if (voltage > 381 && voltage < 400) {
+        return 67.5
+    }
+    if (voltage > 399 && voltage < 415) {
+        return 90
+    }
+    if (voltage > 414 && voltage < 457) {
+        return 157.5
+    }
+    if (voltage > 456 && voltage < 510) {
+        return 135
+    }
+    if (voltage > 509 && voltage < 553) {
+        return 202.5
+    }
+    if (voltage > 552 && voltage < 616) {
+        return 180
+    }
+    if (voltage > 615 && voltage < 681) {
+        return 22.5
+    }
+    if (voltage > 680 && voltage < 747) {
+        return 45
+    }
+    if (voltage > 746 && voltage < 803) {
+        return 247.5
+    }
+    if (voltage > 802 && voltage < 834) {
+        return 215
+    }
+    if (voltage > 833 && voltage < 879) {
+        return 337.5
+    }
+    if (voltage > 878 && voltage < 914) {
+        return 0
+    }
+    if (voltage > 913 && voltage < 941) {
+        return 292.5
+    }
+    if (voltage > 940 && voltage < 971) {
+        return 315
+    }
+    if (voltage > 970 && voltage < 993) {
+        return 270
+    }
+    return 360
+}
+
     /**
     * Read the instaneous wind speed form the Anemometer. Starting the wind
     * speed monitoring updates the wind in MPH every 2 seconds.
