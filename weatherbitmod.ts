@@ -97,13 +97,13 @@ namespace weatherbit {
 
     /**
     * Reads the number of times the rain gauge has filled and emptied
-	* Returns inches of rain. 
+	* Returns mm of rain. 
     */
     //% weight=30 blockId="weatherbit_rain" block="rain"
     export function rain(): number {
         startRainMonitoring();
         // Will be zero until numRainDumps is greater than 90 = 1"
-        let inchesOfRain = ((numRainDumps * 11) / 1000)
+        let inchesOfRain = ((numRainDumps * 11) / 1000) * 25.4
         return inchesOfRain
     }
 
@@ -222,14 +222,14 @@ export function windDir ():number {
 }
 
     /**
-    * Read the instaneous wind speed form the Anemometer. Starting the wind
+    * Read the instaneous wind speed from the Anemometer in m/s. Starting the wind
     * speed monitoring updates the wind in MPH every 2 seconds.
     */
     //% weight=21 blockGap=8 blockId="weatherbit_windSpeed" block="wind speed"
     export function windSpeed(): number {
         startWindMonitoring();
 
-        return windMPH
+        return windMPH/2.2369362920544;
     }
 
     /**
@@ -290,7 +290,7 @@ export function windDir ():number {
 
     /**
      * Reads the temp from the BME sensor and uses compensation for calculator temperature.
-     * Returns 4 digit number. Value should be devided by 100 to get DegC
+     * Returns 4 digit number. Value is divided by 100 to get °C
      */
     //% weight=43 blockGap=8 blockId="weatherbit_temperature" block="temperature(C)"
     export function temperature(): number {
@@ -299,12 +299,13 @@ export function windDir ():number {
         let tempRegL = readBMEReg(tempXlsb, NumberFormat.UInt8LE)
 
         // Use compensation formula and return result
-        return compensateTemp((tempRegM << 4) | (tempRegL >> 4))
+        let compTemp = compensateTemp((tempRegM << 4) | (tempRegL >> 4))
+        return compTemp/100
     }
 
     /**
      * Reads the humidity from the BME sensor and uses compensation for calculating humidity.
-     * returns a 5 digit number. Value should be divided by 1024 to get % relative humidity. 
+     * returns a 5 digit number. Value should is divided by 1024 to get % relative humidity. 
      */
     //% weight=41 blockGap=8 blockId="weatherbit_humidity" block="humidity"
     export function humidity(): number {
@@ -312,12 +313,12 @@ export function windDir ():number {
         let humReg = readBMEReg(humMSB, NumberFormat.UInt16BE)
 
         // Compensate and return humidity
-        return compensateHumidity(humReg)
+        return compensateHumidity(humReg)/1024
     }
 
     /**
      * Reads the pressure from the BME sensor and uses compensation for calculating pressure.
-     * Returns an 8 digit number. Value should be divided by 25600 to get hPa. 
+     * Returns an 8 digit number. Value is divided by 25600 to get hPa. 
      */
     //% weight=42 blockGap=8 blockId="pressure" block="pressure"
     export function pressure(): number {
@@ -326,7 +327,9 @@ export function windDir ():number {
         let pressRegL = readBMEReg(pressXlsb, NumberFormat.UInt8LE)
 
         // Compensate and return pressure
-        return compensatePressure((pressRegM << 4) | (pressRegL >> 4), tFine, digPBuf)
+        
+        let compPress = compensatePressure((pressRegM << 4) | (pressRegL >> 4), tFine, digPBuf)
+        return compPress/25600
     }
 
     /**
