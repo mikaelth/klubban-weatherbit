@@ -1,0 +1,22 @@
+{
+    "name": "weatherbit-klubban-adaptation",
+    "version": "0.0.1",
+    "description": "SparkFun weatherbit modified for Klubban",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "weatherbitmod.ts",
+        "weatherbitmod.cpp",
+        "shims.d.ts",
+        "enums.d.ts",
+        "_locales/fr/weatherbit-strings.json",
+        "_locales/fr/weatherbit-jsdoc-strings.json"
+    ],
+    "testFiles": [
+        "tests.ts"
+    ],
+    "public": true
+}
